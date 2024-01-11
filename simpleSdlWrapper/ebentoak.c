@@ -53,7 +53,7 @@ int ebentuaJasoGertatuBada(void){
 			case SDL_MOUSEMOTION:
 					//ALDAGIA OROKOR BATEN EZARRIK ODUGU X ETA Y GERO FUNZTIO BATEKIN IRAKURTZEKO AZKEN EBENTUAREN POSIZIOA
 					saguPos.x = event.motion.x;
-					saguPos.y =event.motion.y;
+					saguPos.y = event.motion.y;
 					ret = SAGU_MUGIMENDUA;
 					break;
 			default:

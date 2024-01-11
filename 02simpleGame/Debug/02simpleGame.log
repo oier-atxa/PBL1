@@ -1,9 +1,5 @@
-﻿  ebentoak.c
-  graphics.c
-  imagen.c
-  soinua.c
-  text.c
-  02simpleGameMain.c
-  game02.c
-  Generating Code...
-  02simpleGame.vcxproj -> C:\Users\oatxa\Downloads\PBL\JOKOA\Debug\02simpleGame.exe
+﻿  game02.c
+C:\DEV\PBL1\02simpleGame\game02\game02.c(75,15): warning C4013: 'JOKOA_fondoaIrudiaSortu' undefined; assuming extern returning int
+C:\DEV\PBL1\02simpleGame\game02\game02.c(111,57): warning C4020: 'JOKOA_jokalariaIrudiaSortu': too many actual parameters
+C:\DEV\PBL1\02simpleGame\game02\game02.c(146,1): warning C4029: declared formal parameter list different from definition
+  02simpleGame.vcxproj -> C:\DEV\PBL1\Debug\02simpleGame.exe

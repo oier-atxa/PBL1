@@ -2,9 +2,9 @@
 #define GRAPHICS_H
 #include "SDL.h"
 
-#define SCREEN_WIDTH  640
-#define SCREEN_HEIGHT  480
-
+#define SCREEN_WIDTH  1024
+#define SCREEN_HEIGHT  576
+#define TAMANO_BLOQUE 64
 int sgHasieratu();
 void sgItxi();//Sin opciones
 void arkatzKoloreaEzarri(int red, int green, int blue);

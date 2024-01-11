@@ -58,6 +58,11 @@ void zuzenaMarraztu(int x1, int y1, int x2, int y2)
   SDL_SetRenderDrawColor(gRenderer, colorR, colorG, colorB, SDL_ALPHA_OPAQUE);
   SDL_RenderDrawLine(gRenderer, x1, y1, x2, y2);
 }
+void LAUKIAMarraztu(int x1, int y1, int x2, int y2)
+{
+    SDL_SetRenderDrawColor(gRenderer, colorR, colorG, colorB, SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawLine(gRenderer, x1, y1, x2, y2);
+}
 
 void puntuaMarraztu(int x, int y)
 {
@@ -103,3 +108,25 @@ void pantailaBerriztu()
 {
   SDL_RenderPresent(gRenderer);
 }
+
+void dibujarCuadrado(int x, int y, int ancho, int alto, int red, int green, int blue) {
+    arkatzKoloreaEzarri(red, green, blue);
+
+    // Resto del código ...
+
+
+    // Crea una textura con un solo píxel del color especificado
+    SDL_Surface* surface = SDL_CreateRGBSurface(0, 1, 1, 32, 0, 0, 0, 0);
+    SDL_FillRect(surface, NULL, red,green,blue);
+
+    // Crea una textura a partir de la superficie
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(getRenderer(), surface);
+    SDL_FreeSurface(surface);
+
+    // Dibuja la textura en la posición especificada
+    SDL_Rect destRect = { x, y, ancho, alto };
+    irudiaMarraztu(texture, &destRect);
+
+    // Libera la textura
+    SDL_DestroyTexture(texture);
+}   
