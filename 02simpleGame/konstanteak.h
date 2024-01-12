@@ -51,5 +51,5 @@
 #define FILAS 9
 #define COLUMNAS 16
 
-#define ALTURA 25
-#define ANCHO 25
+#define ALTO 64
+#define ANCHO 64

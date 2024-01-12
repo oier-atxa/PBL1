@@ -63,8 +63,8 @@ EGOERA jokatu(void)
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
   POSIZIOA aux;
-  jokalaria.pos.x = 0;
-  jokalaria.pos.y = 0;
+  jokalaria.pos.x = 160;
+  jokalaria.pos.y = 160;
   //Uint32 time01 = SDL_GetTicks(), time02;
   audioInit();
   loadTheMusic(JOKOA_SOUND);
@@ -73,7 +73,7 @@ EGOERA jokatu(void)
   fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu);
   do {
-    Sleep(50);
+    Sleep(5);
     pantailaGarbitu();
     arkatzKoloreaEzarri(0, 0, 0xFF);
    
@@ -99,11 +99,14 @@ EGOERA jokatu(void)
         mugitu = EZKERRA;
         facing = EZKERRA;
         break;
+    case TECLA_SPACE:
+        PantallaNum=Interaktuatu(jokalaria.pos, PantallaNum);
     default:
         mugitu = 0;
         
         break;
     }
+   
     if (mugitu!=0) {
         irudiaKendu(jokalaria.id);
        jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu,facing, jokalaria.pos);
@@ -149,7 +152,26 @@ int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
     return fondoId;
 
 }
+int Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
+    int ebentu = 0;
+    
+    int bloqueX = posizioa.x / TAMANO_BLOQUE;
+    int bloqueY = posizioa.y / TAMANO_BLOQUE;
+    if (mapa[bloqueY][bloqueX] == 2) {
+        //Cambiar mapa
+        printf("X=%d, Y=%d\n", bloqueX, bloqueY);
 
+         
+                PantallaNum++;
+
+                fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
+             
+      
+        return pantallaNum;
+
+    }
+    
+}
 int JOKOA_jokalariaIrudiaSortu(int mugitu,int facing, POSIZIOA posizioa) 
 {
   int martzianoId = -1;
@@ -194,7 +216,6 @@ int JOKOA_jokalariaIrudiaSortu(int mugitu,int facing, POSIZIOA posizioa)
 
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     int NewPosX = posizioa.x, NewPosY = posizioa.y;
-
     switch (mugitu) {
     case GORA:
         NewPosY = posizioa.y - 3;
@@ -211,26 +232,20 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     default:
         break;
     }
+    NewPosY += ALTO/ 2 + 10;
+    NewPosX += ANCHO / 2;
     if (NewPosX >= 0 && NewPosY >= 0) {
         int bloqueX = NewPosX / TAMANO_BLOQUE;
         int bloqueY = NewPosY / TAMANO_BLOQUE;
-
+        NewPosY -= ALTO/2 + 10;
+        NewPosX -= ANCHO / 2;
         if (bloqueX < COLUMNAS && bloqueY < FILAS) {
-            if (mapa[bloqueY][bloqueX] == 0) {
+            if (mapa[bloqueY][bloqueX] == 0 || mapa[bloqueY][bloqueX] == 2) {
                 posizioa.x = NewPosX;
                 posizioa.y = NewPosY;
                 printf("X=%d, Y=%d\n", bloqueX, bloqueY);
             }
-            else if(mapa[bloqueY][bloqueX] == 2){
-                    //Cambiar mapa
-                if(pantallaoff!=1){
-                PantallaNum++;
-               
-                fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
-                pantallaoff = 1;
-                printf("%d\n", mapa[bloqueY][bloqueX]);
-                }
-            }
+      
             else{
                 printf("%d\n", mapa[bloqueY][bloqueX]);
             }
