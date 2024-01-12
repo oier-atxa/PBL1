@@ -14,26 +14,25 @@
 // Variables globales para animación
 int numFrames = 6;  // Número total de imágenes en la secuencia
 int frameIndex = 0; // Índice actual de la imagen en la secuencia
-
+int PantallaNum = 1;
 void sarreraMezuaIdatzi();
-int JOKOA_jokalariaIrudiaSortu(int mugitu);
-void JOKOA_lerroHBatMargotu(int x, int y, int x1, int y1);
-void JOKOA_lerroVBatMargotu(int x, int y, int x1, int y1);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
+JOKO_ELEMENTUA jokalaria, fondoa;
+int pantallaoff = 0;
 
 int mapa[FILAS][COLUMNAS] = {
     
     {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
    
 };
@@ -63,7 +62,6 @@ EGOERA jokatu(void)
   int facing = BEHERA;
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA jokalaria, fondoa;
   POSIZIOA aux;
   jokalaria.pos.x = 0;
   jokalaria.pos.y = 0;
@@ -72,7 +70,7 @@ EGOERA jokatu(void)
   loadTheMusic(JOKOA_SOUND);
   playMusic();
 
-  fondoa.id = JOKOA_fondoaIrudiaSortu();
+  fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu);
   do {
     Sleep(50);
@@ -130,11 +128,21 @@ EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria) {
  
   return ret;
 }
-int JOKOA_fondoaIrudiaSortu() {
+int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
     int fondoId;
-    char* fondoNum = FONDO01;
-    fondoId = irudiaKargatu(fondoNum);
-    irudiaMugitu(fondoId, 69,0);
+    char* FONDO_PATH= FONDO01;
+
+    switch (PantallaNum)
+    {
+    case 1: 
+        FONDO_PATH = FONDO01;
+        break;
+    case 2:
+        FONDO_PATH = FONDO02;
+        break;
+    }
+    fondoId = irudiaKargatu(FONDO_PATH);
+    irudiaMugitu(fondoId, 0,0);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
@@ -203,7 +211,6 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     default:
         break;
     }
-    // Asegúrate de que las nuevas coordenadas estén dentro de los límites del array mapa
     if (NewPosX >= 0 && NewPosY >= 0) {
         int bloqueX = NewPosX / TAMANO_BLOQUE;
         int bloqueY = NewPosY / TAMANO_BLOQUE;
@@ -214,10 +221,21 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
                 posizioa.y = NewPosY;
                 printf("X=%d, Y=%d\n", bloqueX, bloqueY);
             }
-            else {
+            else if(mapa[bloqueY][bloqueX] == 2){
+                    //Cambiar mapa
+                if(pantallaoff!=1){
+                PantallaNum++;
+               
+                fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
+                pantallaoff = 1;
+                printf("%d\n", mapa[bloqueY][bloqueX]);
+                }
+            }
+            else{
                 printf("%d\n", mapa[bloqueY][bloqueX]);
             }
         }
+        
     }
 
     return posizioa;
