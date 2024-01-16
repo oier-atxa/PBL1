@@ -19,7 +19,7 @@ IMG irudiak[MAX_IMG];
 int irudiKop=0;
 int id=0;
 
-int irudiaKargatu(char *fileName)
+int irudiaKargatu(char* fileName)
 {
 	int colorkey;
   SDL_Surface* surface;
@@ -55,6 +55,8 @@ int irudiaKargatu(char *fileName)
 	
 	return id-1;
 }
+
+
 
 void  irudiaMugitu( int numImg , int x, int y)
 {

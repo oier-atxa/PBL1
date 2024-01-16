@@ -4,8 +4,10 @@
 #define EZKERRA 3
 #define ESKUMA 4
 #define ONGI_ETORRI_MEZUA "Sakatu return hasteko..."
-#define FONDO01 ".\\img\\fondo_prueba.bmp"
-#define FONDO02 ".\\img\\fondo.bmp"
+#define FONDO01 ".\\img\\fondo 1.bmp"
+#define FONDO02 ".\\img\\fondo 2.bmp"
+#define FONDO03 ".\\img\\fondo 3.bmp"
+#define FONDO04	".\\img\\fondo 4.bmp"
 #define JOKOA_SOUND ".\\sound\\Different.wav"
 
 #define JOKOA_SOUND_WIN ".\\sound\\BugleCall.wav"
@@ -53,3 +55,5 @@
 
 #define ALTO 64
 #define ANCHO 64
+#define ANCHO_PERSONAJE 12
+#define ALTO_PERSONAJE 16
