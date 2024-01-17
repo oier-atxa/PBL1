@@ -9,11 +9,11 @@
 #include <windows.h>
 #include <string.h>
 
-
+//frame index %num frames  0 1 2 3 0 1 2 
 // Variables globales para animación
 int numFrames = 6;  // Número total de imágenes en la secuencia
 int frameIndex = 0; // Índice actual de la imagen en la secuencia
-int PantallaNum = 1;
+int PantallaNum = 0;
 void sarreraMezuaIdatzi();
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu);
@@ -30,8 +30,8 @@ int MATRIZ_1[FILAS][COLUMNAS] = {
     {0, 0, 0, 0, 0, 1, 0, 2, 2, 0, 1, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
@@ -42,13 +42,13 @@ int MATRIZ_2[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 2 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1}
+    {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
 
 
@@ -119,11 +119,15 @@ void jokoaAurkeztu(void)
 {
     int ebentu = 0;
 
-    sarreraMezuaIdatzi();
+    
+    fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
+   
     do
     {
+        
         ebentu = ebentuaJasoGertatuBada();
     } while (ebentu != TECLA_RETURN);
+    PantallaNum++;
     pantailaGarbitu();
     pantailaBerriztu();
 }
@@ -131,7 +135,7 @@ void jokoaAurkeztu(void)
 void sarreraMezuaIdatzi()
 {
     pantailaGarbitu();
-    textuaIdatzi(225, 200, ONGI_ETORRI_MEZUA);
+    textuaIdatzi(225, 200, "ANCHO");
     pantailaBerriztu();
 }
 
@@ -221,6 +225,9 @@ int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
 
     switch (PantallaNum)
     {
+    case 0:
+        FONDO_PATH = FONDO00;
+        break;
     case 1:
         FONDO_PATH = FONDO01;
         break;
@@ -289,9 +296,13 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa) {
 
 POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
     int ebentu = 0;
-
-    int bloqueX = posizioa.x / TAMANO_BLOQUE;
-    int bloqueY = posizioa.y / TAMANO_BLOQUE;
+    int NewPosX = posizioa.x, NewPosY = posizioa.y;
+    NewPosX += ANCHO / 2;
+    NewPosY -= ALTO / 2;
+    int bloqueX = NewPosX / TAMANO_BLOQUE;
+    int bloqueY = NewPosY / TAMANO_BLOQUE;
+    NewPosX -= ANCHO / 2;
+    NewPosY += ALTO / 2;
     if (mapa[bloqueY][bloqueX] == 2) {
         //Cambiar mapa
         printf("X=%d, Y=%d\n", bloqueX, bloqueY);
@@ -392,7 +403,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
             break;
         }
         if (bloqueX < COLUMNAS && bloqueY < FILAS) {
-            if (mapa[bloqueY][bloqueX] == 0 || mapa[bloqueY][bloqueX] == 2) {
+            if (mapa[bloqueY][bloqueX] == 0 || mapa[bloqueY][bloqueX] == 2 || mapa[bloqueY][bloqueX] == 3)  {
                 posizioa.x = NewPosX;
                 posizioa.y = NewPosY;
                 printf("X=%d, Y=%d\n", bloqueX, bloqueY);

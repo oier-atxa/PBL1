@@ -4,6 +4,7 @@
 #define EZKERRA 3
 #define ESKUMA 4
 #define ONGI_ETORRI_MEZUA "Sakatu return hasteko..."
+#define FONDO00 ".\\img\\fondoo.bmp"
 #define FONDO01 ".\\img\\fondo 1.bmp"
 #define FONDO02 ".\\img\\fondo 2.bmp"
 #define FONDO03 ".\\img\\fondo 3.bmp"
@@ -55,5 +56,5 @@
 
 #define ALTO 64
 #define ANCHO 64
-#define ANCHO_PERSONAJE 12
-#define ALTO_PERSONAJE 16
+#define ANCHO_PERSONAJE 24
+#define ALTO_PERSONAJE 32
