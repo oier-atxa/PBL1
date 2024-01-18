@@ -9,6 +9,8 @@
 #define FONDO02 ".\\img\\fondo 2.bmp"
 #define FONDO03 ".\\img\\fondo 4.bmp"
 #define FONDO04	".\\img\\fondo 3.bmp"
+#define FONDO05	".\\img\\fondo05.bmp"
+#define AZALPENA	".\\img\\azalpena.bmp"
 #define JOKOA_SOUND ".\\sound\\Different.wav"
 
 #define JOKOA_SOUND_WIN ".\\sound\\BugleCall.wav"

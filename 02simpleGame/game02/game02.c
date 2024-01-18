@@ -83,6 +83,21 @@ int MATRIZ_4[FILAS][COLUMNAS] = {
 
 
 };
+int MATRIZ_5[FILAS][COLUMNAS] = {
+
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1}
+
+
+
+};
 
 int mapa[FILAS][COLUMNAS];
 int giltza=0, erropa=0;
@@ -93,25 +108,29 @@ int mapakopiatu(int PantallaNum) {
             switch (PantallaNum) {
             case 1:
                 mapa[i][j] = MATRIZ_1[i][j];
-                printf("%d", mapa[i][j]);
+             
                 break;
             case 2:
                 mapa[i][j] = MATRIZ_2[i][j];
-                printf("%d", mapa[i][j]);
+               
                 break;
             case 3:
                 mapa[i][j] = MATRIZ_3[i][j];
-                printf("%d", mapa[i][j]);
+               
                 break;
             case 4:
                 mapa[i][j] = MATRIZ_4[i][j];
-                printf("%d", mapa[i][j]);
+                
+                break;
+            case 5:
+                mapa[i][j] = MATRIZ_5[i][j];
+              
                 break;
         }
-            printf(", ");
+            
 
         }
-        printf("\n");
+       
     }
 }
 
@@ -209,6 +228,16 @@ EGOERA jokatu(void)
         egoera = JOKOA_egoera(jokalaria);
     } while (egoera == JOLASTEN);
     irudiaKendu(jokalaria.id);
+    irudiaKendu(fondoa.id);
+    fondoa.id = irudiaKargatu(AZALPENA);
+    irudiaMugitu(fondoa.id, 0, 0);
+    pantailaGarbitu();
+    irudiakMarraztu();
+    pantailaBerriztu();
+    while (ebentu != TECLA_RETURN)
+    {
+        ebentu = ebentuaJasoGertatuBada();
+    }
     toggleMusic();
     audioTerminate();
     pantailaGarbitu();
@@ -218,7 +247,9 @@ EGOERA jokatu(void)
 
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria) {
     EGOERA  ret = JOLASTEN;
-
+    if (PantallaNum == 6) {
+        ret = JOLASTEN2;
+    }
     return ret;
 }
 int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
@@ -242,14 +273,15 @@ int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
     case 4:
         FONDO_PATH = FONDO04;
         break;
-
+    case 5:
+        FONDO_PATH = FONDO05;
+        break;
     }
     fondoId = irudiaKargatu(FONDO_PATH);
     irudiaMugitu(fondoId, 0, 0);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
-    printf("aldatuta %s %d\n", FONDO_PATH, PantallaNum);
     return fondoId;
 
 }
@@ -276,7 +308,6 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
        PantallaNum--;
    }
         
-    
 
 
     fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
@@ -319,13 +350,21 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
         }
         
         break;
-
+    case 5:
+        if (next) {
+            posizioa.x = SCREEN_WIDTH - 64;
+            posizioa.y = SCREEN_HEIGHT / 2;
+        }
+        else {
+            posizioa.x = 64;
+            posizioa.y = SCREEN_HEIGHT / 2;
+        }
     }
-    printf("X=%d y=%d \n", posizioa.x, posizioa.y);
     irudiaMugitu(jokalaria.id, posizioa.x, posizioa.y);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
+    
     return posizioa;
 
 }
@@ -486,12 +525,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
             if (mapa[bloqueY][bloqueX] != 1)  {
                 posizioa.x = NewPosX;
                 posizioa.y = NewPosY;
-                printf("X=%d, Y=%d\n", bloqueX, bloqueY);
-            }
-
-            else {
-                printf("X=%d, Y=%d\n", bloqueX, bloqueY);
-                printf("%d\n", mapa[bloqueY][bloqueX]);
+               
             }
         }
 

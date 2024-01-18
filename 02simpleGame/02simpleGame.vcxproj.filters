@@ -42,6 +42,9 @@
     <ClCompile Include="..\simpleSdlWrapper\text.c">
       <Filter>Source Files\simpleSdlWrapper</Filter>
     </ClCompile>
+    <ClCompile Include="BigarrenFasea.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\simpleSdlWrapper\ebentoak.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="konstanteak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BIgarrenFasea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

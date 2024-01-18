@@ -10,12 +10,14 @@
 #include "ebentoak.h"
 #include "text.h"
 #include "soinua.h"
+
 //---------------------------------------------------------------------------------
 
 #include <stdio.h>
 
 #include "ourTypes.h"
 #include "game02.h"
+#include "BigarrenFasea.h"
 
 
 int main(int argc, char * str[]) {
@@ -32,8 +34,10 @@ int main(int argc, char * str[]) {
   {
     jokoaAurkeztu();
     egoera = jokatu();
+    egoera = jokatu2(egoera);
     jarraitu = jokoAmaierakoa(egoera);
   } while (jarraitu);
+
   sgItxi();
   return 0;
 }

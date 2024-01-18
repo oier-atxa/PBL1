@@ -1,5 +1,6 @@
-﻿  game02.c
-C:\DEV\PBL1\02simpleGame\game02\game02.c(124,17): warning C4013: 'JOKOA_fondoaIrudiaSortu' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(160,20): warning C4013: 'JOKOA_jokalariaIrudiaSortu' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(116): warning C4716: 'mapakopiatu': must return a value
+﻿  BigarrenFasea.c
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(42,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(43,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(50,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(60,34): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   02simpleGame.vcxproj -> C:\DEV\PBL1\Debug\02simpleGame.exe
