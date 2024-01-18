@@ -9,7 +9,8 @@
 #include <windows.h>
 #include <string.h>
 #include <time.h>
-
+int numFrame = 4;
+int frame = 0;
 int JOKOA_IrudiaSortu(POSIZIOA posizioa, int type, char str[], char str2[]);
 int JOKOA_egoera2(POSIZIOA posizioa1, POSIZIOA posizioa2, POSIZIOA posizioa3);
 POSIZIOA OztopoMugimendua(POSIZIOA posizioa);
@@ -81,9 +82,6 @@ EGOERA jokatu2(EGOERA egoera)
 
             bizitzak = JOKOA_egoera2(jokalaria.pos, oztopoa1.pos, oztopoa2.pos);
             bizitzak += bizitzakop;
-
-
-
         } while (bizitzak == bizitzakop && countdown != 0);
         printf("Bizitzak %d\n", bizitzak);
         irudiaKendu(jokalaria.id);
@@ -110,6 +108,7 @@ EGOERA jokatu2(EGOERA egoera)
 int JOKOA_IrudiaSortu(POSIZIOA posizioa, int type, char str[], char str2[])
 {
     int id = -1;
+    
     switch (type) {
     case 0:
         id = irudiaKargatu(".\\img\\prota_fase2.bmp");
@@ -118,7 +117,8 @@ int JOKOA_IrudiaSortu(POSIZIOA posizioa, int type, char str[], char str2[])
         id = irudiaKargatu(".\\img\\furgo.bmp");
         break;
     case -1:
-        id = irudiaKargatu(".\\img\\fondo_fase2.bmp");
+ 
+        id = irudiaKargatu(".\\img\\fondo_care00.bmp");
         break;
     default:
         break;

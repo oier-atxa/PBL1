@@ -20,6 +20,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
 JOKO_ELEMENTUA jokalaria, fondoa, dialogo;
+int robo = 0;
 int next = -1;
 POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum);
 POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next);
@@ -72,8 +73,8 @@ int MATRIZ_4[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 1},
     {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -92,8 +93,8 @@ int MATRIZ_5[FILAS][COLUMNAS] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1}
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1}
 
 
 
@@ -238,6 +239,7 @@ EGOERA jokatu(void)
     {
         ebentu = ebentuaJasoGertatuBada();
     }
+    irudiaKendu(fondoa.id);
     toggleMusic();
     audioTerminate();
     pantailaGarbitu();
@@ -352,8 +354,8 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
         break;
     case 5:
         if (next) {
-            posizioa.x = SCREEN_WIDTH - 64;
-            posizioa.y = SCREEN_HEIGHT / 2;
+            posizioa.x = SCREEN_WIDTH /2 +128;
+            posizioa.y = SCREEN_HEIGHT - 64;
         }
         else {
             posizioa.x = 64;
@@ -396,22 +398,108 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
             irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(GILTZA_HARTU);
         }
+        
+        else if (PantallaNum == 5) {
+            if (robo != 1) {
+                irudiaKenduDialogo();
+                dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+            }
+            else {
+                next = 1;
+                posizioa = pantallaAldatu(posizioa, next);
+            }
+        }
         else {
             next = 1;
             posizioa = pantallaAldatu(posizioa, next);
         }
-        
         break;
     case 3:
         if (PantallaNum == 1) {
+            if(giltza!=1){
             giltza = 1;
             irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(GILTZA_HARTU);
+            }
         }
         else if (PantallaNum == 2) {
-            erropa = 1;
+            if (erropa != 1) {
+                erropa = 1;
+                irudiaKenduDialogo();
+                dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+            }
+        }
+        else if (PantallaNum == 4) {
+
+
             irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+            char str1[50];
+            int result1 = 0, result2 = 0;
+            int num1 = rand() % 10; // Número aleatorio entre 1 y 10
+            int num2 = rand() % 10;
+            int num3 = rand() % 10;
+            int num4 = rand() % 10;
+            sprintf(str1, "(%d + %d) / %d + %d", num1, num2, num3, num4);
+            result1 = (num1 + num2) / num3 + num4;
+            textuaIdatzi(64, 448, str1);
+            pantailaBerriztu();
+            while (ebentu != TECLA_RETURN)
+            {
+                ebentu = ebentuaJasoGertatuBada();
+                switch (ebentu)
+                {
+                case TECLA_0:
+                    result2 *= 10;
+                    result2 += 0;
+                    break;
+                case TECLA_1:
+                    result2 *= 10;
+                    result2 += 1;
+                    break;
+                case TECLA_2:
+                    result2 *= 10;
+                    result2 += 2;
+                    break;
+                case TECLA_3:
+                    result2 *= 10;
+                    result2 += 3;
+                    break;
+                case TECLA_4:
+                    result2 *= 10;
+                    result2 += 4;
+                    break;
+                case TECLA_5:
+                    result2 *= 10;
+                    result2 += 5;
+                    break;
+                case TECLA_6:
+                    result2 *= 10;
+                    result2 += 6;
+                    break;
+                case TECLA_7:
+                    result2 *= 10;
+                    result2 += 7;
+                    break;
+                case TECLA_8:
+                    result2 *= 10;
+                    result2 += 8;
+                    break;
+                case TECLA_9:
+                    result2 *= 10;
+                    result2 += 9;
+                    break;
+
+                }
+
+            }
+
+
+            if (result1 == result2) {
+                robo = 1;
+            }
+            printf("%d", robo);
+            
         }
         break;
     case 4:
