@@ -9,8 +9,7 @@
 #include <windows.h>
 #include <string.h>
 
-//frame index %num frames  0 1 2 3 0 1 2 
-// Variables globales para animación
+
 int numFrames = 6;  // Número total de imágenes en la secuencia
 int frameIndex = 0; // Índice actual de la imagen en la secuencia
 int PantallaNum = 0;
@@ -28,9 +27,9 @@ int MATRIZ_1[FILAS][COLUMNAS] = {
     //DONE!!
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0, 1, 0, 2, 2, 3, 1, 3, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -42,14 +41,14 @@ int MATRIZ_1[FILAS][COLUMNAS] = {
 int MATRIZ_2[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1},
-    {1, 2, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 0, 0, 1, 0, 3, 3, 3, 3, 0, 1, 0, 0, 0, 1},
+    {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    {1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1}
 
 
 
@@ -58,11 +57,11 @@ int MATRIZ_3[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
@@ -291,7 +290,7 @@ int dialogoa_sortu(char* DIALOGO_PATH) {
     int dialogoId;
     
     dialogoId = irudiaKargatu(DIALOGO_PATH);
-    irudiaMugitu(dialogoId, 0, SCREEN_HEIGHT/2);
+    irudiaMugitu(dialogoId, 12, 384);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
@@ -318,27 +317,27 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
     
     switch (PantallaNum) {
     case 1:
-        posizioa.x = SCREEN_WIDTH/2;
+        posizioa.x = SCREEN_WIDTH/2-64;
         posizioa.y = 192;
         break;
     case 2:
         if (next){
-        posizioa.x = SCREEN_WIDTH / 2;
-        posizioa.y = SCREEN_HEIGHT - 64;
+        posizioa.x = SCREEN_WIDTH / 2-64;
+        posizioa.y = SCREEN_HEIGHT - 128;
         }
         else {
             posizioa.x = 128;
-            posizioa.y = SCREEN_HEIGHT/2;
+            posizioa.y = SCREEN_HEIGHT/2-64;
         }
         break;
     case 3:
         if (next) {
-            posizioa.x = SCREEN_WIDTH - 64;
-            posizioa.y = SCREEN_HEIGHT / 2;
+            posizioa.x = SCREEN_WIDTH - 128;
+            posizioa.y = SCREEN_HEIGHT / 2-64;
         }
         else {
-            posizioa.x = SCREEN_WIDTH / 2;
-            posizioa.y = SCREEN_HEIGHT - 64;
+            posizioa.x = SCREEN_WIDTH / 2-64;
+            posizioa.y = SCREEN_HEIGHT - 128;
         }
         break;
     case 4:
@@ -382,17 +381,17 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
     int ebentu = 0;
     int NewPosX = posizioa.x, NewPosY = posizioa.y;
     NewPosX += ANCHO / 2;
-    NewPosY -= ALTO / 2;
+    NewPosY += ALTO / 2;
     int bloqueX = NewPosX / TAMANO_BLOQUE;
     int bloqueY = NewPosY / TAMANO_BLOQUE;
     NewPosX -= ANCHO / 2;
-    NewPosY += ALTO / 2;
+    NewPosY -= ALTO / 2;
     irudiaKenduDialogo();
     switch (mapa[bloqueY][bloqueX]) {
     case 2:
         if (PantallaNum == 1 && giltza!=1) {
             irudiaKenduDialogo();
-            dialogo.id = dialogoa_sortu(GILTZA_HARTU);
+            dialogo.id = dialogoa_sortu(ATEA_ITXITA);
         }
         else if (PantallaNum == 3 && erropa != 1) {
             irudiaKenduDialogo();
@@ -402,7 +401,7 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
         else if (PantallaNum == 5) {
             if (robo != 1) {
                 irudiaKenduDialogo();
-                dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+                dialogo.id = dialogoa_sortu(ATEA_ITXITA);
             }
             else {
                 next = 1;
@@ -426,14 +425,14 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
             if (erropa != 1) {
                 erropa = 1;
                 irudiaKenduDialogo();
-                dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+                dialogo.id = dialogoa_sortu(UNIFORMEA_HARTU);
             }
         }
         else if (PantallaNum == 4) {
 
 
             irudiaKenduDialogo();
-            dialogo.id = dialogoa_sortu(ERROPA_HARTU);
+            dialogo.id = dialogoa_sortu(NOTA);
             char str1[50];
             int result1 = 0, result2 = 0;
             int num1 = rand() % 10; // Número aleatorio entre 1 y 10
@@ -496,9 +495,15 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
 
 
             if (result1 == result2) {
+                irudiaKenduDialogo();
+                dialogo.id = dialogoa_sortu(ZUZENA);
                 robo = 1;
             }
-            printf("%d", robo);
+            else {
+                irudiaKenduDialogo();
+                dialogo.id = dialogoa_sortu(ERROREA);
+            }
+        
             
         }
         break;
@@ -570,47 +575,39 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     int NewPosX = posizioa.x, NewPosY = posizioa.y;
     switch (mugitu) {
     case GORA:
-        NewPosY -= (ALTO_PERSONAJE/2 + 5);
+        NewPosY -= 5;
         break;
     case BEHERA:
-        NewPosY += (ALTO_PERSONAJE/2 + 5);
+        NewPosY += 5;
         break;
     case ESKUMA:
-        NewPosX += (ANCHO_PERSONAJE/2 + 5);
+        NewPosX += 5;
         break;
     case EZKERRA:
-        NewPosX -= (ANCHO_PERSONAJE/2 + 5);
+        NewPosX -= 5;
         break;
     default:
         break;
     }
-    NewPosX += ANCHO / 2;
-    NewPosY -= ALTO / 2;
-    if (NewPosX >= 0 && NewPosY >= 0) {
+    NewPosX += ANCHO / 2 - ANCHO_PERSONAJE/2;
+    NewPosY += ALTO / 2 - ALTO_PERSONAJE/2;
+    int NewPosXMax=NewPosX, NewPosYMax=NewPosY;
+    NewPosXMax += ANCHO_PERSONAJE;
+    NewPosYMax += ALTO_PERSONAJE;
+
+    if (NewPosX > 0 && NewPosY > 0 &&
+        NewPosXMax < SCREEN_WIDTH && NewPosYMax < SCREEN_HEIGHT
+        ) {
         int bloqueX = NewPosX / TAMANO_BLOQUE;
         int bloqueY = NewPosY / TAMANO_BLOQUE;
-        switch (mugitu) {
-           case GORA:
-            NewPosY = NewPosY + ALTO_PERSONAJE/2 + ALTO / 2;
-            NewPosX -= ANCHO / 2;
-            break;
-           case BEHERA:
-            NewPosY = NewPosY - ALTO_PERSONAJE/2 + ALTO / 2;
-            NewPosX -= ANCHO / 2;
-            break;
-           case ESKUMA:
-            NewPosX = NewPosX - ANCHO_PERSONAJE/2 - ANCHO / 2;
-            NewPosY += ALTO / 2;
-            break;
-           case EZKERRA:
-            NewPosX = NewPosX + ANCHO_PERSONAJE/2 - ANCHO / 2;
-            NewPosY += ALTO / 2;
-            break;
-           default:
-            break;
-        }
+        int bloqueXMax = NewPosXMax / TAMANO_BLOQUE;
+        int bloqueYMax = NewPosYMax / TAMANO_BLOQUE;
+        NewPosX -= ANCHO / 2 - ANCHO_PERSONAJE / 2;
+        NewPosY -= ALTO / 2 - ALTO_PERSONAJE / 2;
+       
         if (bloqueX < COLUMNAS && bloqueY < FILAS) {
-            if (mapa[bloqueY][bloqueX] != 1)  {
+            if (mapa[bloqueY][bloqueX] != 1 && mapa[bloqueYMax][bloqueXMax] != 1 &&
+                mapa[bloqueYMax][bloqueX] != 1 && mapa[bloqueY][bloqueXMax] != 1)  {
                 posizioa.x = NewPosX;
                 posizioa.y = NewPosY;
                

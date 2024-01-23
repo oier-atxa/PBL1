@@ -10,7 +10,7 @@
 TTF_Font *font=0;
 
 void textuaGaitu(void){
-	font=TTF_OpenFontIndex("C:\\WINDOWS\\Fonts\\ARIAL.TTF", 16, 0);
+	font=TTF_OpenFontIndex("C:\\WINDOWS\\Fonts\\ARIAL.TTF", 44, 0);
 	if(!font) 
   {
 		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());
@@ -22,7 +22,7 @@ void textuaIdatzi(int x, int y, char *str)
 {
   SDL_Surface* textSurface;
   SDL_Texture *mTexture;
-  SDL_Color textColor = { 0XFF, 0XFF, 0XFF };
+  SDL_Color textColor = { 0, 0, 0 };
   SDL_Rect src, dst;
   SDL_Renderer* gRenderer;
 

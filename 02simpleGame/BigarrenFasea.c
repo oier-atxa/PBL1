@@ -89,14 +89,14 @@ EGOERA jokatu2(EGOERA egoera)
         irudiaKendu(oztopoa2.id);
         irudiaKendu(fondo.id);
 
-        if (bizitzak == 0) {
-            egoera = GALDU;
+        if (bizitzak == 3) {
+            egoera = IRABAZI;
         }
         if (countdown == 0) {
             egoera = IRABAZI;
         }
     } while (egoera == JOLASTEN2);
-
+    egoera = dilema(egoera);
     toggleMusic();
     audioTerminate();
     pantailaGarbitu();
@@ -204,4 +204,47 @@ POSIZIOA Mugimendua(POSIZIOA posizioa, int ebentu)
         posizioa.y = 384;
     }
     return posizioa;
+}
+EGOERA dilema(EGOERA egoera) {
+    int fondoId, ebentu, fondoActualId;
+    fondoId = irudiaKargatu(".\\img\\fondo05.bmp");
+    irudiaMugitu(fondoId, 0, 0);
+    irudiakMarraztu();
+    pantailaBerriztu();
+    SDL_Delay(2000);
+    fondoActualId = fondoId;
+    int teclaPresionada = 0;
+
+    do {
+        ebentu = ebentuaJasoGertatuBada();
+
+        if (egoera == IRABAZI) {
+            switch (ebentu) {
+            case TECLA_1:
+                if (!teclaPresionada) {
+                    irudiaKendu(fondoActualId);
+                    fondoActualId = irudiaKargatu(".\\img\\fondo 3.bmp");
+                    irudiaMugitu(fondoActualId, 0, 0);
+                    irudiakMarraztu();
+                    pantailaBerriztu();
+                    teclaPresionada = 1;
+                }
+                break;
+            case TECLA_2:
+                if (!teclaPresionada) {
+                    irudiaKendu(fondoActualId);
+                    fondoActualId = irudiaKargatu(".\\img\\fondo 1.bmp");
+                    irudiaMugitu(fondoActualId, 0, 0);
+                    irudiakMarraztu();
+                    pantailaBerriztu();
+                    teclaPresionada = 1;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    } while (egoera == IRABAZI);
+
+    irudiaKendu(fondoActualId);
 }
