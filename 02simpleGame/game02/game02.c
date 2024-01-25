@@ -329,7 +329,7 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
    irudiaKendu(fondoa.id);
     fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
     mapakopiatu(PantallaNum);
-    jokalaria.id = irudiaKargatu(".\\img\\sprite_bmp\\33.bmp");
+    jokalaria.id = irudiaKargatu(".\\img\\sprite bmp\\33.bmp");
     
     switch (PantallaNum) {
     case 1:
@@ -588,7 +588,7 @@ int JOKOA_jokalariaIrudiaSortu(int mugitu, POSIZIOA posizioa)
     //Lehen spritaren balioa spritaren dagoen framearen kopuruarekin batu.
     sprite_num = frameIndex + Direction;
     //irudia kokatuta dagoen bidea zehaztu.
-    sprintf(image_PATH, ".\\img\\sprite_bmp\\%d.bmp", sprite_num);
+    sprintf(image_PATH, ".\\img\\sprite bmp\\%d.bmp", sprite_num);
     //Pertsonaia dagokion posizioan marraztu.
     PertsonaiaId = irudiaKargatu(image_PATH);
     irudiaMugitu(PertsonaiaId, posizioa.x, posizioa.y);
