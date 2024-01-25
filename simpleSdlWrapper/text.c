@@ -22,7 +22,7 @@ void textuaIdatzi(int x, int y, char *str)
 {
   SDL_Surface* textSurface;
   SDL_Texture *mTexture;
-  SDL_Color textColor = { 0, 0, 0 };
+  SDL_Color textColor = {255, 255, 255};
   SDL_Rect src, dst;
   SDL_Renderer* gRenderer;
 

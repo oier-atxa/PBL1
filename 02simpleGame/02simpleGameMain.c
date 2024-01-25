@@ -32,11 +32,12 @@ int main(int argc, char * str[]) {
   textuaGaitu(); 
   do
   {
+    menua();
     jokoaAurkeztu();
     egoera = jokatu();
     egoera = jokatu2(egoera);
-    dilema(egoera);
-    jarraitu = jokoAmaierakoa(egoera);
+
+   
   } while (jarraitu);
 
   sgItxi();

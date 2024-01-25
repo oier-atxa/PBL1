@@ -8,12 +8,14 @@
 #include <stdio.h>
 #include <windows.h>
 #include <string.h>
-
+#include <stdlib.h>
+#include <time.h>
+int seguridadId1, seguridadId2;
 
 int numFrames = 6;  // Número total de imágenes en la secuencia
 int frameIndex = 0; // Índice actual de la imagen en la secuencia
 int PantallaNum = 0;
-void sarreraMezuaIdatzi();
+
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu);
 //int  BUKAERA_menua(EGOERA egoera);
@@ -21,64 +23,57 @@ int BUKAERA_irudiaBistaratu();
 JOKO_ELEMENTUA jokalaria, fondoa, dialogo;
 int robo = 0;
 int next = -1;
-POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum);
+POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu);
 POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next);
 int MATRIZ_1[FILAS][COLUMNAS] = {
     //DONE!!
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1}
+
+
+
+};
+int MATRIZ_2[FILAS][COLUMNAS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0, 1, 0, 2, 2, 3, 1, 3, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-
-
-
 };
-int MATRIZ_2[FILAS][COLUMNAS] = {
-
+int MATRIZ_3[FILAS][COLUMNAS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 0, 0, 1, 0, 3, 3, 3, 3, 0, 1, 0, 0, 0, 1},
-    {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1},
+    {1, 2, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 1},
     {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 1, 1, 1}
-
-
-
-};
-int MATRIZ_3[FILAS][COLUMNAS] = {
-
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-
-
-
 };
 int MATRIZ_4[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+   
 
 
 
@@ -86,14 +81,29 @@ int MATRIZ_4[FILAS][COLUMNAS] = {
 int MATRIZ_5[FILAS][COLUMNAS] = {
 
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+    {2, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 4},
+    {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+
+
+
+};
+int MATRIZ_6[FILAS][COLUMNAS] = {
+
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1}
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1}
 
 
 
@@ -124,7 +134,11 @@ int mapakopiatu(int PantallaNum) {
                 break;
             case 5:
                 mapa[i][j] = MATRIZ_5[i][j];
-              
+          
+                break;
+            case 6:
+                mapa[i][j] = MATRIZ_6[i][j];
+
                 break;
         }
             
@@ -152,59 +166,52 @@ void jokoaAurkeztu(void)
     pantailaBerriztu();
 }
 
-void sarreraMezuaIdatzi()
-{
-    pantailaGarbitu();
-    textuaIdatzi(225, 200, "ANCHO");
-    pantailaBerriztu();
-}
-
 EGOERA jokatu(void)
 {
+
     int mugitu = 0;
-    int facing = BEHERA;
     EGOERA  egoera = JOLASTEN;
     int ebentu = 0;
     dialogo.id = -1;
     POSIZIOA aux;
 
-    jokalaria.pos.x = 64;
-    jokalaria.pos.y = SCREEN_HEIGHT / 2;
+    jokalaria.pos.x = SCREEN_WIDTH - 384;
+    jokalaria.pos.y = SCREEN_HEIGHT - 128 ;
     //Uint32 time01 = SDL_GetTicks(), time02;
     audioInit();
     loadTheMusic(JOKOA_SOUND);
     playMusic();
     mapakopiatu(PantallaNum);
     fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
-    jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu,facing,jokalaria.pos);
+    jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu,jokalaria.pos);
+    dialogo.id=dialogoa_sortu(NOTA);
     do {
-        Sleep(5);
-        arkatzKoloreaEzarri(0, 0, 0xFF);
-        
+        Sleep(5); 
         irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
         irudiakMarraztu();
         pantailaBerriztu();
         ebentu = ebentuaJasoGertatuBada();
+        
         switch (ebentu)
         {
         case TECLA_UP:
             mugitu = GORA;
-            facing = GORA;
+           
             break;
         case TECLA_DOWN:
             mugitu = BEHERA;
-            facing = BEHERA;
+           
             break;
         case TECLA_RIGHT:
             mugitu = ESKUMA;
-            facing = ESKUMA;
+            
             break;
         case TECLA_LEFT:
             mugitu = EZKERRA;
-            facing = EZKERRA;
+         
             break;
         case TECLA_SPACE:
-            aux = Interaktuatu(jokalaria.pos, PantallaNum);
+            aux = Interaktuatu(jokalaria.pos, PantallaNum, mugitu);
             jokalaria.pos.x = aux.x;
             jokalaria.pos.y = aux.y;
             
@@ -218,7 +225,7 @@ EGOERA jokatu(void)
         if (mugitu != 0) {
             irudiaKenduDialogo();   
             irudiaKendu(jokalaria.id);
-            jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu, facing, jokalaria.pos);
+            jokalaria.id = JOKOA_jokalariaIrudiaSortu(mugitu, jokalaria.pos);
             aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos, mugitu);
             jokalaria.pos.x = aux.x;
             jokalaria.pos.y = aux.y;
@@ -248,7 +255,7 @@ EGOERA jokatu(void)
 
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria) {
     EGOERA  ret = JOLASTEN;
-    if (PantallaNum == 6) {
+    if (PantallaNum == 7) {
         ret = JOLASTEN2;
     }
     return ret;
@@ -256,7 +263,7 @@ EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria) {
 int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
     int fondoId;
     char* FONDO_PATH = FONDO01;
-
+    
     switch (PantallaNum)
     {
     case 0:
@@ -264,18 +271,27 @@ int JOKOA_fondoaIrudiaSortu(int PantallaNum) {
         break;
     case 1:
         FONDO_PATH = FONDO01;
+        
         break;
     case 2:
         FONDO_PATH = FONDO02;
+        
         break;
     case 3:
         FONDO_PATH = FONDO03;
+    
         break;
     case 4:
         FONDO_PATH = FONDO04;
+        
         break;
     case 5:
         FONDO_PATH = FONDO05;
+       
+        break;
+    case 6:
+        FONDO_PATH = FONDO06;
+       
         break;
     }
     fondoId = irudiaKargatu(FONDO_PATH);
@@ -308,76 +324,99 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
    {
        PantallaNum--;
    }
-        
+   playSound(loadSound(".\\sound\\Puerta.WAV"));
 
-
+   irudiaKendu(fondoa.id);
     fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
     mapakopiatu(PantallaNum);
-    jokalaria.id = irudiaKargatu(".\\img\\sprite_bmp\\1.bmp");
+    jokalaria.id = irudiaKargatu(".\\img\\sprite bmp\\33.bmp");
     
     switch (PantallaNum) {
     case 1:
-        posizioa.x = SCREEN_WIDTH/2-64;
-        posizioa.y = 192;
+            posizioa.x =  64;
+            posizioa.y = 136;        
         break;
     case 2:
-        if (next){
-        posizioa.x = SCREEN_WIDTH / 2-64;
-        posizioa.y = SCREEN_HEIGHT - 128;
+        if(next){
+            
+            posizioa.x = 0;
+            posizioa.y = SCREEN_HEIGHT - 192;
         }
         else {
-            posizioa.x = 128;
-            posizioa.y = SCREEN_HEIGHT/2-64;
+            posizioa.x = SCREEN_WIDTH / 2-64;
+            posizioa.y = 192;
         }
         break;
     case 3:
         if (next) {
-            posizioa.x = SCREEN_WIDTH - 128;
-            posizioa.y = SCREEN_HEIGHT / 2-64;
-        }
-        else {
-            posizioa.x = SCREEN_WIDTH / 2-64;
+            posizioa.x = SCREEN_WIDTH / 2 - 64;
             posizioa.y = SCREEN_HEIGHT - 128;
         }
+        else {
+            posizioa.x = 128;
+            posizioa.y = 236;
+            irudiaKendu(seguridadId1);
+            irudiaKendu(seguridadId2);
+        }
+
         break;
     case 4:
-        if (next) {
-            posizioa.x = SCREEN_WIDTH - 64;
+        if (next){
+        posizioa.x = SCREEN_WIDTH -128;
+        posizioa.y = SCREEN_HEIGHT/2;
+        }
+        else {
+            posizioa.x = 0;
             posizioa.y = SCREEN_HEIGHT / 2;
         }
-        else{
-            posizioa.x = 64;
-            posizioa.y = SCREEN_HEIGHT / 2;
-        }
-        
+        seguridadId1 = irudiaKargatu(MAKARRA);
+        seguridadId2 = irudiaKargatu(MAKARRA);
+        irudiaMugitu(seguridadId1, SCREEN_WIDTH / 2 - 256, SCREEN_HEIGHT / 2 - 110);
+        irudiaMugitu(seguridadId2, SCREEN_WIDTH / 2 - 128, SCREEN_HEIGHT / 2 - 110);
+        pantailaGarbitu();
+        irudiakMarraztu();
+        pantailaBerriztu();
         break;
     case 5:
         if (next) {
-            posizioa.x = SCREEN_WIDTH /2 +128;
-            posizioa.y = SCREEN_HEIGHT - 64;
+            posizioa.x = SCREEN_WIDTH - 128;
+            posizioa.y = SCREEN_HEIGHT / 2 - 64;
         }
         else {
-            posizioa.x = 64;
-            posizioa.y = SCREEN_HEIGHT / 2;
+            posizioa.x = SCREEN_WIDTH / 2-64;
+            posizioa.y = SCREEN_HEIGHT - 128;   
         }
+        irudiaKendu(seguridadId1);
+        irudiaKendu(seguridadId2);
+        break;
+    case 6:
+        if (next) {
+            posizioa.x = SCREEN_WIDTH - 384;
+            posizioa.y = SCREEN_HEIGHT -128;
+        }
+        else {
+            posizioa.x = SCREEN_WIDTH - 384;
+            posizioa.y = 0;
+        }
+      
+        break;
     }
     irudiaMugitu(jokalaria.id, posizioa.x, posizioa.y);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
-    
     return posizioa;
 
 }
 void irudiaKenduDialogo() {
     if (dialogo.id != -1) {   
         irudiaKendu(dialogo.id);
-        dialogo.id = -1;  // Reinicia el identificador del diálogo
+        dialogo.id = -1; 
     }
 }
 
 
-POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
+POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu) {
     int ebentu = 0;
     int NewPosX = posizioa.x, NewPosY = posizioa.y;
     NewPosX += ANCHO / 2;
@@ -386,22 +425,22 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
     int bloqueY = NewPosY / TAMANO_BLOQUE;
     NewPosX -= ANCHO / 2;
     NewPosY -= ALTO / 2;
-    irudiaKenduDialogo();
+    irudiaKendu(dialogo.id);
     switch (mapa[bloqueY][bloqueX]) {
     case 2:
-        if (PantallaNum == 1 && giltza!=1) {
-            irudiaKenduDialogo();
+        if (PantallaNum == 2 && giltza!=1) {
+            irudiaKendu(dialogo.id);
             dialogo.id = dialogoa_sortu(ATEA_ITXITA);
         }
-        else if (PantallaNum == 3 && erropa != 1) {
-            irudiaKenduDialogo();
-            dialogo.id = dialogoa_sortu(GILTZA_HARTU);
+        else if (PantallaNum == 4 && erropa != 1) {
+            irudiaKendu(dialogo.id);
+            dialogo.id = dialogoa_sortu(UNIFORMEA_FALTA);
         }
         
-        else if (PantallaNum == 5) {
+        else if (PantallaNum == 6) {
             if (robo != 1) {
-                irudiaKenduDialogo();
-                dialogo.id = dialogoa_sortu(ATEA_ITXITA);
+                irudiaKendu(dialogo.id);
+                dialogo.id = dialogoa_sortu(DIRUA_FALTA);
             }
             else {
                 next = 1;
@@ -414,34 +453,36 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
         }
         break;
     case 3:
-        if (PantallaNum == 1) {
+        if (PantallaNum == 2) {
             if(giltza!=1){
             giltza = 1;
-            irudiaKenduDialogo();
+            irudiaKendu(dialogo.id);
             dialogo.id = dialogoa_sortu(GILTZA_HARTU);
             }
         }
-        else if (PantallaNum == 2) {
+        else if (PantallaNum == 3) {
             if (erropa != 1) {
                 erropa = 1;
-                irudiaKenduDialogo();
+                irudiaKendu(dialogo.id);
                 dialogo.id = dialogoa_sortu(UNIFORMEA_HARTU);
             }
         }
-        else if (PantallaNum == 4) {
-
-
-            irudiaKenduDialogo();
-            dialogo.id = dialogoa_sortu(NOTA);
+        else if (PantallaNum == 5) {
+            irudiaKendu(dialogo.id);
+            dialogo.id = dialogoa_sortu(ARIKETA);
             char str1[50];
             int result1 = 0, result2 = 0;
+            srand(time(NULL));
             int num1 = rand() % 10; // Número aleatorio entre 1 y 10
             int num2 = rand() % 10;
             int num3 = rand() % 10;
             int num4 = rand() % 10;
-            sprintf(str1, "(%d + %d) / %d + %d", num1, num2, num3, num4);
+            while (num3==0) {
+                num3 = rand() % 10;
+           }
+            sprintf(str1, "(%d + %d) / %d + %d = ", num1, num2, num3, num4);
             result1 = (num1 + num2) / num3 + num4;
-            textuaIdatzi(64, 448, str1);
+            textuaIdatzi(448, 478, str1);
             pantailaBerriztu();
             while (ebentu != TECLA_RETURN)
             {
@@ -450,7 +491,6 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
                 {
                 case TECLA_0:
                     result2 *= 10;
-                    result2 += 0;
                     break;
                 case TECLA_1:
                     result2 *= 10;
@@ -488,23 +528,30 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
                     result2 *= 10;
                     result2 += 9;
                     break;
-
+                case 8:
+                    result2 /= 10;
                 }
-
+                if (ebentu != 0) {
+                    irudiaKendu(dialogo.id);
+                    dialogo.id = dialogoa_sortu(ARIKETA);
+                    sprintf(str1, "(%d + %d) / %d + %d = %d ", num1, num2, num3, num4, result2);
+                    textuaIdatzi(448, 478, str1);
+                    pantailaBerriztu();
+                }
+                if (mugitu!=0) {
+                    irudiaKendu(dialogo.id);
+                    
+                }
             }
-
-
             if (result1 == result2) {
-                irudiaKenduDialogo();
+                irudiaKendu(dialogo.id);
                 dialogo.id = dialogoa_sortu(ZUZENA);
                 robo = 1;
             }
             else {
-                irudiaKenduDialogo();
+                irudiaKendu(dialogo.id);
                 dialogo.id = dialogoa_sortu(ERROREA);
             }
-        
-            
         }
         break;
     case 4:
@@ -512,67 +559,50 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum) {
         posizioa = pantallaAldatu(posizioa, next);
         break;
     }
-    
-    /*if (mapa[bloqueY][bloqueX] == 2) {
-        //Cambiar mapa
-        printf("X=%d, Y=%d\n", bloqueX, bloqueY);
-         posizioa= pantallaAldatu(posizioa);
-    
-    }
-    else if (mapa[bloqueY][bloqueX] == 3) {
-        PantallaNum -= 2;
-        posizioa = pantallaAldatu(posizioa);
-
-    }
-    */
     return posizioa;
-
-
 }
-int JOKOA_jokalariaIrudiaSortu(int mugitu, int facing, POSIZIOA posizioa)
+int JOKOA_jokalariaIrudiaSortu(int mugitu, POSIZIOA posizioa)
 {
-    int martzianoId = -1;
-    char image_PATH[250] = JOKOA_PLAYER_IMAGE_DOWN_00;
+    int PertsonaiaId = -1;
+    char image_PATH[250];
+    int sprite_num;
     int Direction = 33;
-
-
-    if (facing != Direction) {
-        switch (mugitu)
-        {
-        case GORA:
-            Direction = 41;
-            break;
-        case BEHERA:
-            Direction = 33;
-            break;
-        case EZKERRA:
-            Direction = 57;
-            break;
-        case ESKUMA:
-            Direction = 49;
-            break;
-        default:
-            break;
-        }
+    //Norabide bakoitzerako norabideko lehen spritaren balioa eman
+    switch (mugitu)
+    {
+    case GORA:
+        Direction = 41;
+        break;
+    case BEHERA:
+        Direction = 33;
+        break;
+    case EZKERRA:
+        Direction = 57;
+        break;
+    case ESKUMA:
+        Direction = 49;
+        break;
+    default:
+        break;
     }
-    frameIndex = frameIndex + Direction;
-    snprintf(image_PATH, sizeof(image_PATH), ".\\img\\sprite_bmp\\%d.bmp", frameIndex);
-    if (martzianoId == -1) {
-        martzianoId = irudiaKargatu(image_PATH);
-    }
-    frameIndex = frameIndex - Direction;
-
-    irudiaMugitu(martzianoId, posizioa.x, posizioa.y);
+    //Lehen spritaren balioa spritaren dagoen framearen kopuruarekin batu.
+    sprite_num = frameIndex + Direction;
+    //irudia kokatuta dagoen bidea zehaztu.
+    sprintf(image_PATH, ".\\img\\sprite bmp\\%d.bmp", sprite_num);
+    //Pertsonaia dagokion posizioan marraztu.
+    PertsonaiaId = irudiaKargatu(image_PATH);
+    irudiaMugitu(PertsonaiaId, posizioa.x, posizioa.y);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
-    return martzianoId;
-
+    return PertsonaiaId;
 }
 
 
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     int NewPosX = posizioa.x, NewPosY = posizioa.y;
+    int kolisioa;
+    //Jokalariaren ondorengo posizioa kalkulatu.
     switch (mugitu) {
     case GORA:
         NewPosY -= 5;
@@ -589,67 +619,80 @@ POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu) {
     default:
         break;
     }
-    NewPosX += ANCHO / 2 - ANCHO_PERSONAJE/2;
-    NewPosY += ALTO / 2 - ALTO_PERSONAJE/2;
-    int NewPosXMax=NewPosX, NewPosYMax=NewPosY;
-    NewPosXMax += ANCHO_PERSONAJE;
-    NewPosYMax += ALTO_PERSONAJE;
-
-    if (NewPosX > 0 && NewPosY > 0 &&
-        NewPosXMax < SCREEN_WIDTH && NewPosYMax < SCREEN_HEIGHT
-        ) {
-        int bloqueX = NewPosX / TAMANO_BLOQUE;
-        int bloqueY = NewPosY / TAMANO_BLOQUE;
-        int bloqueXMax = NewPosXMax / TAMANO_BLOQUE;
-        int bloqueYMax = NewPosYMax / TAMANO_BLOQUE;
-        NewPosX -= ANCHO / 2 - ANCHO_PERSONAJE / 2;
-        NewPosY -= ALTO / 2 - ALTO_PERSONAJE / 2;
-       
-        if (bloqueX < COLUMNAS && bloqueY < FILAS) {
-            if (mapa[bloqueY][bloqueX] != 1 && mapa[bloqueYMax][bloqueXMax] != 1 &&
-                mapa[bloqueYMax][bloqueX] != 1 && mapa[bloqueY][bloqueXMax] != 1)  {
-                posizioa.x = NewPosX;
-                posizioa.y = NewPosY;
-               
-            }
-        }
-
+    kolisioa=kolisioarenDetekzioa(NewPosX,NewPosY);
+    if (!kolisioa) {
+        posizioa.x = NewPosX;
+        posizioa.y = NewPosY;
     }
-
     return posizioa;
 }
-
-
-int  jokoAmaierakoa(EGOERA egoera)
-{
-    int ebentu = 0, id;
-    int idAudioGame;
-
-    loadTheMusic(BUKAERA_SOUND_1);
-    if (egoera == IRABAZI) {
-        idAudioGame = loadSound(JOKOA_SOUND_WIN);
-        playSound(idAudioGame);
+int kolisioarenDetekzioa(int posX, int posY) {
+    int Xmin, Xmax, Ymin, Ymax,bloqueXmin,bloqueXmax,bloqueYmin,bloqueYmax;
+    //Jokalariaren posizioarekiko pertsonaiaren ertzak kalkulatu.
+    //Perpektibarengatik pertsonaiaren buruak kolisioak pasatu ahal ditu (Horregatik +30).
+    Xmin = posX + ANCHO / 2 - ANCHO_PERSONAJE / 2;
+    Ymin = posY + ALTO / 2 - ALTO_PERSONAJE / 2;
+    Xmax = Xmin + ANCHO_PERSONAJE;
+    Ymax = Ymin + ALTO_PERSONAJE;
+    Ymin += 30;
+    //Pertsonaia pantailatik atera ez dela zihurtatu.
+    if (Xmin > 0 && 
+        Ymin > 0 &&
+        Xmax < SCREEN_WIDTH && 
+        Ymax < SCREEN_HEIGHT) {
+            //matrizearen posizioak kalkulatu.
+            bloqueXmin = Xmin / TAMANO_BLOQUE;
+            bloqueYmin = Ymin / TAMANO_BLOQUE;
+            bloqueXmax = Xmax / TAMANO_BLOQUE;
+            bloqueYmax = Ymax / TAMANO_BLOQUE;
+            //Kolisioa detektatu eta kolisiorik ez dagoen kasuan posizioa eguneratu.
+            if (bloqueXmax < COLUMNAS && bloqueYmax < FILAS) {
+                if (mapa[bloqueYmin][bloqueXmin] != 1 &&
+                    mapa[bloqueYmax][bloqueXmax] != 1 &&
+                    mapa[bloqueYmax][bloqueXmin] != 1 && 
+                    mapa[bloqueYmin][bloqueXmax] != 1) {
+                        return 0;
+                }
+                else {
+                    return 1;
+                }
+            }
     }
-    else {
-        idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
-        playSound(idAudioGame);
-    }
-    id = BUKAERA_irudiaBistaratu();
-    do
-    {
-        ebentu = ebentuaJasoGertatuBada();
-    } while ((ebentu != TECLA_RETURN) && (ebentu != SAGU_BOTOIA_ESKUMA));
-    audioTerminate();
-    irudiaKendu(id);
-    return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
 
-int BUKAERA_irudiaBistaratu() {
-    int id = -1;
-    id = irudiaKargatu(BUKAERA_IMAGE);
-    irudiaMugitu(id, 200, 200);
+void menua() {
+    int ebentu = 0;
+    //menuko lehen irudia marraztu.
+    int fondoId = irudiaKargatu(".\\img\\MENUA.bmp");
+    irudiaMugitu(fondoId, 0, 0);
     pantailaGarbitu();
     irudiakMarraztu();
     pantailaBerriztu();
-  return id;
+
+    do {
+        //ze tekla sakatu den konprobatu
+        ebentu = ebentuaJasoGertatuBada();
+        switch (ebentu) {
+        case TECLA_1:
+            irudiaKendu(fondoId);
+            break;
+        case TECLA_2:
+            irudiaKendu(fondoId);
+            fondoId = irudiaKargatu(".\\img\\KREDITUAK.bmp");
+            irudiaMugitu(fondoId, 0, 0);
+            irudiakMarraztu();
+            pantailaBerriztu();
+            while (ebentu != TECLA_RETURN) {
+                ebentu = ebentuaJasoGertatuBada();
+            }
+            irudiaKendu(fondoId);
+            fondoId = irudiaKargatu(".\\img\\MENUA.bmp");
+            pantailaGarbitu();
+            irudiakMarraztu();
+            pantailaBerriztu();
+            break;
+        default:
+            break;
+        }
+    } while (ebentu != TECLA_1);
 }
