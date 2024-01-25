@@ -1,12 +1,15 @@
-﻿  game02.c
-C:\DEV\PBL1\02simpleGame\game02\game02.c(157,17): warning C4013: 'JOKOA_fondoaIrudiaSortu' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(186,20): warning C4013: 'JOKOA_jokalariaIrudiaSortu' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(187,16): warning C4013: 'dialogoa_sortu' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(475,19): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\DEV\PBL1\02simpleGame\game02\game02.c(483,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\DEV\PBL1\02simpleGame\game02\game02.c(537,21): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\DEV\PBL1\02simpleGame\game02\game02.c(591,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\DEV\PBL1\02simpleGame\game02\game02.c(622,14): warning C4013: 'kolisioarenDetekzioa' undefined; assuming extern returning int
-C:\DEV\PBL1\02simpleGame\game02\game02.c(149): warning C4716: 'mapakopiatu': must return a value
-C:\DEV\PBL1\02simpleGame\game02\game02.c(661): warning C4715: 'kolisioarenDetekzioa': not all control paths return a value
+﻿  BigarrenFasea.c
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(24,11): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(27,15): warning C4087: 'playMusic': declared with 'void' parameter list
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(85,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(129,22): warning C4013: 'erlojufun' undefined; assuming extern returning int
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(160,14): warning C4013: 'dilema' undefined; assuming extern returning int
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(50,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(65,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(66,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(178,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(188,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(201,19): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(200,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\DEV\PBL1\02simpleGame\BigarrenFasea.c(408): warning C4716: 'dilema': must return a value
   02simpleGame.vcxproj -> C:\DEV\PBL1\Debug\02simpleGame.exe

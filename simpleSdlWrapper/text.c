@@ -10,7 +10,7 @@
 TTF_Font *font=0;
 
 void textuaGaitu(void){
-	font=TTF_OpenFontIndex("C:\\WINDOWS\\Fonts\\ARIAL.TTF", 44, 0);
+	font=TTF_OpenFontIndex("C:\\WINDOWS\\Fonts\\ARIAL.TTF", 34, 0);
 	if(!font) 
   {
 		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());

@@ -329,7 +329,7 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
    irudiaKendu(fondoa.id);
     fondoa.id = JOKOA_fondoaIrudiaSortu(PantallaNum);
     mapakopiatu(PantallaNum);
-    jokalaria.id = irudiaKargatu(".\\img\\sprite bmp\\33.bmp");
+    jokalaria.id = irudiaKargatu(".\\img\\sprite_bmp\\33.bmp");
     
     switch (PantallaNum) {
     case 1:
@@ -425,21 +425,21 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu) {
     int bloqueY = NewPosY / TAMANO_BLOQUE;
     NewPosX -= ANCHO / 2;
     NewPosY -= ALTO / 2;
-    irudiaKendu(dialogo.id);
+    irudiaKenduDialogo();
     switch (mapa[bloqueY][bloqueX]) {
     case 2:
         if (PantallaNum == 2 && giltza!=1) {
-            irudiaKendu(dialogo.id);
+            irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(ATEA_ITXITA);
         }
         else if (PantallaNum == 4 && erropa != 1) {
-            irudiaKendu(dialogo.id);
+            irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(UNIFORMEA_FALTA);
         }
         
         else if (PantallaNum == 6) {
             if (robo != 1) {
-                irudiaKendu(dialogo.id);
+                irudiaKenduDialogo();
                 dialogo.id = dialogoa_sortu(DIRUA_FALTA);
             }
             else {
@@ -456,19 +456,19 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu) {
         if (PantallaNum == 2) {
             if(giltza!=1){
             giltza = 1;
-            irudiaKendu(dialogo.id);
+            irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(GILTZA_HARTU);
             }
         }
         else if (PantallaNum == 3) {
             if (erropa != 1) {
                 erropa = 1;
-                irudiaKendu(dialogo.id);
+                irudiaKenduDialogo();
                 dialogo.id = dialogoa_sortu(UNIFORMEA_HARTU);
             }
         }
         else if (PantallaNum == 5) {
-            irudiaKendu(dialogo.id);
+            irudiaKenduDialogo();
             dialogo.id = dialogoa_sortu(ARIKETA);
             char str1[50];
             int result1 = 0, result2 = 0;
@@ -532,24 +532,24 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu) {
                     result2 /= 10;
                 }
                 if (ebentu != 0) {
-                    irudiaKendu(dialogo.id);
+                    irudiaKenduDialogo();
                     dialogo.id = dialogoa_sortu(ARIKETA);
                     sprintf(str1, "(%d + %d) / %d + %d = %d ", num1, num2, num3, num4, result2);
                     textuaIdatzi(448, 478, str1);
                     pantailaBerriztu();
                 }
                 if (mugitu!=0) {
-                    irudiaKendu(dialogo.id);
+                    irudiaKenduDialogo();
                     
                 }
             }
             if (result1 == result2) {
-                irudiaKendu(dialogo.id);
+                irudiaKenduDialogo();
                 dialogo.id = dialogoa_sortu(ZUZENA);
                 robo = 1;
             }
             else {
-                irudiaKendu(dialogo.id);
+                irudiaKenduDialogo();
                 dialogo.id = dialogoa_sortu(ERROREA);
             }
         }
@@ -588,7 +588,7 @@ int JOKOA_jokalariaIrudiaSortu(int mugitu, POSIZIOA posizioa)
     //Lehen spritaren balioa spritaren dagoen framearen kopuruarekin batu.
     sprite_num = frameIndex + Direction;
     //irudia kokatuta dagoen bidea zehaztu.
-    sprintf(image_PATH, ".\\img\\sprite bmp\\%d.bmp", sprite_num);
+    sprintf(image_PATH, ".\\img\\sprite_bmp\\%d.bmp", sprite_num);
     //Pertsonaia dagokion posizioan marraztu.
     PertsonaiaId = irudiaKargatu(image_PATH);
     irudiaMugitu(PertsonaiaId, posizioa.x, posizioa.y);

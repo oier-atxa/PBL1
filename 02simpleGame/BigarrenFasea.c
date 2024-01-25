@@ -62,7 +62,7 @@ EGOERA jokatu2(EGOERA egoera)
             if (Framee % 3 == 1) {
                 Frame = (Frame + 1) % 7;
             }
-            sprintf(str, "Tiempo: %d s", countdown);
+            sprintf(str, "Denbora: %d s", countdown);
             sprintf(str3, "Gasolina: %d s", gasolinavar);
             bizitzakop = bizitzak;
             ebentu = ebentuaJasoGertatuBada();
@@ -114,8 +114,8 @@ EGOERA jokatu2(EGOERA egoera)
             erlojua.id = JOKOA_IrudiaSortu(erlojua.pos, 3, 0);
             irudiakMarraztu();
             textuaIdatzi(10, 10, str);
-            textuaIdatzi(900, 10, str2);
-            textuaIdatzi(460, 10, str3);
+            textuaIdatzi(700, 10, str2);
+            textuaIdatzi(360, 10, str3);
             pantailaBerriztu();
 
             bizitzak = JOKOA_egoera2(jokalaria.pos, oztopoa1.pos, oztopoa2.pos);
