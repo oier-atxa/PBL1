@@ -12,14 +12,14 @@
 #include <time.h>
 int seguridadId1, seguridadId2;
 
-int numFrames = 6;  // Número total de imágenes en la secuencia
-int frameIndex = 0; // Índice actual de la imagen en la secuencia
+int numFrames = 6;  
+int frameIndex = 0; 
 int PantallaNum = 0;
 
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa, int mugitu);
 //int  BUKAERA_menua(EGOERA egoera);
-int BUKAERA_irudiaBistaratu();
+
 JOKO_ELEMENTUA jokalaria, fondoa, dialogo;
 int robo = 0;
 int next = -1;
@@ -381,23 +381,21 @@ POSIZIOA pantallaAldatu(POSIZIOA posizioa, int next) {
         if (next) {
             posizioa.x = SCREEN_WIDTH - 128;
             posizioa.y = SCREEN_HEIGHT / 2 - 64;
+            irudiaKendu(seguridadId1);
+            irudiaKendu(seguridadId2);
         }
         else {
-            posizioa.x = SCREEN_WIDTH / 2-64;
-            posizioa.y = SCREEN_HEIGHT - 128;   
+            posizioa.x = 64;
+            posizioa.y = SCREEN_HEIGHT / 2;
         }
-        irudiaKendu(seguridadId1);
-        irudiaKendu(seguridadId2);
+       
         break;
     case 6:
         if (next) {
             posizioa.x = SCREEN_WIDTH - 384;
             posizioa.y = SCREEN_HEIGHT -128;
         }
-        else {
-            posizioa.x = SCREEN_WIDTH - 384;
-            posizioa.y = 0;
-        }
+      
       
         break;
     }
@@ -473,7 +471,7 @@ POSIZIOA Interaktuatu(POSIZIOA posizioa, int pantallaNum, int mugitu) {
             char str1[50];
             int result1 = 0, result2 = 0;
             srand(time(NULL));
-            int num1 = rand() % 10; // Número aleatorio entre 1 y 10
+            int num1 = rand() % 10; 
             int num2 = rand() % 10;
             int num3 = rand() % 10;
             int num4 = rand() % 10;

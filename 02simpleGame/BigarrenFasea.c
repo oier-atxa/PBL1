@@ -14,7 +14,7 @@ int Frame = 0;
 
 EGOERA jokatu2(EGOERA egoera)
 {
-    int ebentu = 0, bizitzak = 3, bizitzakop, countdown = 120, countdeath, denbora = 120, Framee = 0, elapsedSeconds, random1 = 0, random2 = 1, gasolinavar = 10, countgas, cocheround = 0, CountdownReal = 120;
+    int ebentu = 0, bizitzak = 8, bizitzakop, countdown = 80 , countdeath, denbora = 80, Framee = 0, elapsedSeconds, random1 = 0, random2 = 1, gasolinavar = 10, countgas, cocheround = 0, CountdownReal = 120;
     char str[16], str2[16], str3[16];
     JOKO_ELEMENTUA jokalaria, oztopoa1, oztopoa2, fondo, gasolina, erlojua;
     POSIZIOA aux, aux2, aux3, aux4, aux5;
@@ -66,7 +66,7 @@ EGOERA jokatu2(EGOERA egoera)
             sprintf(str3, "Gasolina: %d s", gasolinavar);
             bizitzakop = bizitzak;
             ebentu = ebentuaJasoGertatuBada();
-            Sleep(4);
+            Sleep(0);
 
             if (oztopoa1.pos.x <= -192 && countdeath - 1 > CountdownReal) {
                 SortuKotxeak(&oztopoa1.pos, &oztopoa2.pos);
@@ -332,7 +332,7 @@ void SortuGasolina(POSIZIOA* posizioa1)
     }
 }
 EGOERA dilema(EGOERA egoera) {
-    int fondoId, ebentu, fondoActualId;
+    int fondoId, ebentu=0, fondoActualId;
     int dilemaid;
     if (egoera == GALDU) {
         fondoId = irudiaKargatu(".\\img\\moricion.bmp");
@@ -349,7 +349,7 @@ EGOERA dilema(EGOERA egoera) {
     pantailaBerriztu();
     SDL_Delay(2000);
     fondoActualId = fondoId;
-    int teclaPresionada = 0;
+ 
 
     do {
         ebentu = ebentuaJasoGertatuBada();
@@ -357,48 +357,48 @@ EGOERA dilema(EGOERA egoera) {
         if (egoera == IRABAZI) {
             switch (ebentu) {
             case TECLA_1:
-                if (!teclaPresionada) {
+                
                     irudiaKendu(fondoActualId);
                     fondoActualId = irudiaKargatu(".\\img\\te quedas el dinero.bmp");
                     irudiaMugitu(fondoActualId, 0, 0);
-                    dilemaid = irudiaKargatu(".\\img\\dilema_1_1.bmp");
-                    irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
-                    irudiakMarraztu();
-                    pantailaBerriztu();
-                    teclaPresionada = 1;
-                    while (ebentu != TECLA_RETURN) {
-                        {
-                            ebentu = ebentuaJasoGertatuBada();
-                        }
-                    }
-                    dilemaid = irudiaKargatu(".\\img\\dilema_1_2.bmp");
-                    irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
-                }
-                break;
-            case TECLA_2:
-                if (!teclaPresionada) {
-                    fondoActualId = irudiaKargatu(".\\img\\final bueno.bmp");
-                    irudiaMugitu(fondoActualId, 0, 0);
                     dilemaid = irudiaKargatu(".\\img\\dilema_2_1.bmp");
                     irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
-                    irudiaMugitu(fondoActualId, 0, 0);
                     irudiakMarraztu();
                     pantailaBerriztu();
-                    teclaPresionada = 1;
-                    while (ebentu != TECLA_RETURN) {
+                  
+                    while (ebentu != TECLA_RETURN) 
                         {
                             ebentu = ebentuaJasoGertatuBada();
                         }
-                    }
+                    irudiaKendu(dilemaid);
                     dilemaid = irudiaKargatu(".\\img\\dilema_2_2.bmp");
                     irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
-                }
+                    irudiakMarraztu();
+                    pantailaBerriztu();
+                break;
+            case TECLA_2:
+                
+                    fondoActualId = irudiaKargatu(".\\img\\final bueno.bmp");
+                    irudiaMugitu(fondoActualId, 0, 0);
+                    dilemaid = irudiaKargatu(".\\img\\dilema_1_1.bmp");
+                    irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
+                    irudiaMugitu(fondoActualId, 0, 0);
+                    irudiakMarraztu();
+                    pantailaBerriztu();
+                    while (ebentu != TECLA_RETURN)
+                    {
+                        ebentu = ebentuaJasoGertatuBada();
+                    }
+                    irudiaKendu(dilemaid);
+                    dilemaid = irudiaKargatu(".\\img\\dilema_1_2.bmp");
+                    irudiaMugitu(dilemaid, 162, SCREEN_HEIGHT / 2 + 64);
+                    irudiakMarraztu();
+                    pantailaBerriztu();
+
                 break;
             default:
                 break;
             }
-             irudiakMarraztu();
-                    pantailaBerriztu();
         }
 
        
