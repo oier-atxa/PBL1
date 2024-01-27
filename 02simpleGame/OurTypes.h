@@ -3,7 +3,7 @@
 
 #include "ebentoak.h"
 
-typedef enum { JOLASTEN, JOLASTEN2, GALDU, IRABAZI }EGOERA;
+typedef enum { JOLASTEN, JOLASTEN2, GALDU, IRABAZI, BUKATU }EGOERA;
 typedef enum { IRUDIA, MARGOA, TESTUA } MOTA;
 
 typedef struct

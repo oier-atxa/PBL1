@@ -36,6 +36,7 @@ int main(int argc, char * str[]) {
     jokoaAurkeztu();
     egoera = jokatu();
     egoera = jokatu2(egoera);
+    egoera = dilema(egoera);
 
    
   } while (jarraitu);

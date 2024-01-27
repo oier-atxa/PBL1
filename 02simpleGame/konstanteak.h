@@ -31,10 +31,12 @@
 #define BUKAERA_IMAGE ".\\img\\gameOver_1.bmp"
 #define MAKARRA ".\\img\\makarra.bmp"
 
-#define FILAS 9
-#define COLUMNAS 16
+#define ZUTABEAK 16
+#define ABEAK 9
 
 #define ALTO 128
 #define ANCHO 128
 #define ANCHO_PERSONAJE 44
 #define ALTO_PERSONAJE 72
+#define BLOKEAREN_TAMAINA 64
+
